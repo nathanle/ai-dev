@@ -1,0 +1,88 @@
+####Init ver of config.yaml
+hub:
+  config:
+    GenericOAuthenticator:
+      client_id: "<Client ID from Keycloak>"
+      client_secret: "<Client Secret from Keycloak"
+      authorize_url: https://kc-ai.cloud-testing.io/auth/realms/master/protocol/openid-connect/auth
+      token_url: https://kc-ai.cloud-testing.io/auth/realms/master/protocol/openid-connect/token
+      oauth_callback_url: https://ai-dev.cloud-testing.io/hub/oauth_callback
+      userdata_url: https://kc-ai.cloud-testing.io/auth/realms/master/protocol/openid-connect/userinfo
+      login_service: Keycloak 
+      username_claim: preferred_username
+      userdata_params:
+        state: state
+      # Allow all keycloak users
+      allow_all: true
+      admin_users:
+        - <list of usernames in OAuth that should have admin rights>
+        - user1 
+        - user2 
+      scope:
+        - openid
+    JupyterHub:
+      authenticator_class: generic-oauth
+proxy:
+  service:
+    type: "ClusterIP"
+
+singleuser:
+  image:
+    name: nathanles/custom-conda
+    tag: cpu-latest
+  extraNodeAffinity:
+    required:
+      - matchExpressions:
+          - key: "lke.linode.com/pool-id"
+            operator: In
+            values:
+              - "845636"
+  #cmd: null
+  ###########################################################Storage
+  storage:
+    dynamic:
+      storageClass: linode-block-storage-retain
+    extraVolumes:
+      # Arbitrary key for identity & ordering
+      1-jupyterhub-shared:
+        name: jupyterhub-shared
+        persistentVolumeClaim:
+          claimName: shared-storage 
+    extraVolumeMounts:
+      # Arbitrary key for identity & ordering
+      1-jupyterhub-shared:
+        name: jupyterhub-shared
+        mountPath: /shared
+  ###########################################################UI
+  #defaultUrl: "/lab"
+  ######################################################Single user resources
+  memory:
+    limit: 4G
+    guarantee: 2G
+  profileList:
+    - display_name: "CPU Server"
+      description: "Spawns a notebook server withOUT access to a GPU"
+    - display_name: "GPU Server"
+      description: "Spawns a notebook server with access to a GPU"
+      kubespawner_override:
+        #image: nathanles/custom-conda:gpu-test
+        image: cschranz/gpu-jupyter:v1.10_cuda-12.9_ubuntu-24.04
+        pullPolicy: Always
+        node_affinity_required:
+          - matchExpressions:
+             - key: "lke.linode.com/pool-id"
+               operator: In
+               values:
+               - "845635"
+#  storage:
+#    extraVolumes:
+#      # Arbitrary key for identity & ordering
+#      1-shm-volume:
+#        name: shm-volume
+#        emptyDir:
+#          medium: Memory
+#    extraVolumeMounts:
+#      # Arbitrary key for identity & ordering
+#      1-shm-volume:
+#        name: shm-volume
+#        mountPath: /dev/shm

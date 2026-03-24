@@ -1,0 +1,50 @@
+apiVersion: gateway.networking.k8s.io/v1
+kind: Gateway
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-staging
+  name: eg
+  namespace: default
+spec:
+  gatewayClassName: eg
+  listeners:
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    hostname: ai-dev.cloud-testing.io
+    name: https-ai-dev
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: ai-dev-https
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    hostname: ai-dev.cloud-testing.io
+    name: http-ai-dev
+    port: 80
+    protocol: HTTP
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    hostname: kc-ai.cloud-testing.io
+    name: https-keycloak
+    port: 443
+    protocol: HTTPS
+    tls:
+      certificateRefs:
+      - group: ""
+        kind: Secret
+        name: keycloak-https
+      mode: Terminate
+  - allowedRoutes:
+      namespaces:
+        from: Same
+    hostname: kc-ai.cloud-testing.io
+    name: http-keycloak
+    port: 80
+    protocol: HTTP

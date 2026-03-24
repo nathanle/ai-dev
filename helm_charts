@@ -1,0 +1,32 @@
+#!/bin/zsh
+# Envoy
+helm install eg oci://docker.io/envoyproxy/gateway-helm --version v1.7.0 -n envoy-gateway-system --create-namespace
+kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v1.7.0/quickstart.yaml -n default
+egctl x status all -A
+#storage
+helm repo add nfs-ganesha-server-and-external-provisioner https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner/
+helm install shared-fs nfs-ganesha-server-and-external-provisioner/nfs-server-provisioner
+#let's encrypt
+helm repo add jetstack https://charts.jetstack.io
+#
+helm install \
+cert-manager jetstack/cert-manager \
+--namespace cert-manager \
+--create-namespace \
+--version v1.19.2 \
+--set crds.enabled=true \
+--set config.enableGatewayAPI=true \
+--set config.kind="ControllerConfiguration"   
+#####################keycloakx####################
+helm upgrade --install keycloak oci://ghcr.io/codecentric/helm-charts/keycloakx --version 7.1.8 --values ./values.yaml
+#####################JupyterHub####################
+helm repo add jupyterhub https://hub.jupyter.org/helm-chart/
+helm repo update
+helm upgrade --cleanup-on-fail \
+  --install <helm-release-name> jupyterhub/jupyterhub \
+  --namespace <k8s-namespace> \
+  --create-namespace \
+  --version=<chart-version> \
+  --values config.yaml
+#######################GPU Support########################
+kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.17.1/deployments/static/nvidia-device-plugin.yml

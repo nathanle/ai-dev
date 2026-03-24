@@ -1,0 +1,39 @@
+command:
+  - "/opt/keycloak/bin/kc.sh"
+  - "start"
+  - "--http-port=8080"
+  - "--hostname-strict=false"
+  - "--proxy-headers=xforwarded"
+extraEnv: |
+  - name: KC_LOG_LEVEL
+    value: ERROR 
+  - name: KC_HOSTNAME
+    value: kc-ai.cloud-testing.io
+  - name: KEYCLOAK_ADMIN
+    value: admin
+  - name: KEYCLOAK_ADMIN_PASSWORD
+    value: <Starting admin password>
+  - name: KC_DB 
+    value: postgres
+  - name: KC_DB_URL_HOST
+    value: a441765-akamai-prod-2551706-default.g2a.akamaidb.net 
+  - name: KC_DB_URL_PORT
+    value: "25079"
+  - name: KC_DB_URL_DATABASE 
+    value: defaultdb 
+  - name: KC_DB_USERNAME 
+    value: akmadmin
+  - name: KC_DB_PASSWORD
+    value: <DB Password> 
+  - name: JAVA_OPTS_APPEND
+    value: >-
+      -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless
+#  affinity: |
+#    nodeAffinity:
+#      requiredDuringSchedulingIgnoredDuringExecution:
+#        nodeSelectorTerms:
+#        -  matchExpressions:
+#           - key: "lke.linode.com/pool-id"
+#             operator: In
+#             values:
+#             - "845636"
