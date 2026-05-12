@@ -172,4 +172,3 @@ kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.
 This will install a Daemonset for NVIDIA support in the LKE nodes for Kubernetes.
 
 More info background information can be found here: https://techdocs.akamai.com/cloud-computing/docs/gpus-on-lke
-# ai-dev
