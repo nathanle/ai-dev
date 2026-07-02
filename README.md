@@ -140,7 +140,7 @@ correct storageClassName attribute. For example:
 
 We are installing one instance for CPU operations and one for GPU operations. Dask (see below) for distributed workloads has been added as well.
 
-<img width="2938" height="1312" alt="Screenshot 2026-07-02 at 10 48 53 AM" src="https://github.com/user-attachments/assets/5df582e8-0c5e-4af3-92bb-defd628c51ff" />
+<img width="2940" height="1236" alt="Screenshot 2026-07-02 at 10 50 46 AM" src="https://github.com/user-attachments/assets/1303f6ec-89ca-4b91-af6b-9c46093e8866" />
 
 
 <img width="2938" height="1312" alt="Screenshot 2026-07-02 at 10 48 53 AM" src="https://github.com/user-attachments/assets/8f7b86aa-48e0-40ff-a127-02583f8cc736" />
