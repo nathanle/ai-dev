@@ -1,4 +1,4 @@
-# AI Multiuser Development Platform 
+# AI Multi-User Development Platform 
 
 # Installation
 
