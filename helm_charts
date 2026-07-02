@@ -5,7 +5,7 @@ kubectl apply -f https://github.com/envoyproxy/gateway/releases/download/v1.7.0/
 egctl x status all -A
 #storage
 helm repo add nfs-ganesha-server-and-external-provisioner https://kubernetes-sigs.github.io/nfs-ganesha-server-and-external-provisioner/
-helm install shared-fs nfs-ganesha-server-and-external-provisioner/nfs-server-provisioner
+helm install shared-fs nfs-ganesha-server-and-external-provisioner/nfs-server-provisioner -f helm-nfs-server-values.yaml
 #let's encrypt
 helm repo add jetstack https://charts.jetstack.io
 #
@@ -26,7 +26,17 @@ helm upgrade --cleanup-on-fail \
   --install <helm-release-name> jupyterhub/jupyterhub \
   --namespace <k8s-namespace> \
   --create-namespace \
-  --version=<chart-version> \
+  --version=4.3.5 \
   --values config.yaml
 #######################GPU Support########################
 kubectl create -f https://raw.githubusercontent.com/NVIDIA/k8s-device-plugin/v0.17.1/deployments/static/nvidia-device-plugin.yml
+#######################Dask############################
+RELEASE=dask-gateway            
+NAMESPACE=dev-ai
+
+helm upgrade $RELEASE dask-gateway \
+    --repo=https://helm.dask.org \
+    --install \
+    --namespace $NAMESPACE \
+    --values values.yaml
+helm install --create-namespace -n dask-operator --generate-name dask/dask-kubernetes-operator

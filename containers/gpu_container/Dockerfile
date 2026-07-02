@@ -20,6 +20,7 @@ ENV LD_LIBRARY_PATH=/usr/local/anaconda3/lib/:$LD_LIBRARY_PATH
 
 USER root
 # R pre-requisites
+
 RUN apt-get update --yes && \
     apt-get install --yes --no-install-recommends \
     gdebi \
@@ -56,7 +57,8 @@ RUN conda update -c defaults conda && \
     conda config --add channels conda-forge  && \
     conda config --set channel_priority strict && \
     conda config --append channels nvidia
-
+RUN pip install "setuptools<81"
+RUN conda install -c conda-forge ncurses --force-reinstall
 # Install Jupyter Notebook
 RUN conda install --y -c base -c conda-forge -c nvidia \ 
     jupyterlab=${JUPYTER_LAB_VERSION} \
@@ -91,6 +93,7 @@ RUN mamba install --yes \
     'r-shiny' \
     'r-tidymodels' \
     'r-tidyverse' \
+    'dask==2026.3.0' \
     'rpy2' \
     'jupyterhub' \
     'jupyter-server-proxy' \
@@ -99,11 +102,17 @@ RUN mamba install --yes \
     'pycuda' \
     'jupyterlab-nvdashboard' \
     'code-server' \
+    'dask-labextension>=5' \
+    'cupy' \
     'unixodbc' && \
      mamba clean --all -f -y
 
-RUN jupyter lab --generate-config
+RUN pip3 install dask-cuda
 
+RUN jupyter lab --generate-config
+USER root
+RUN chown -R ${ANACONDA_UID}:users /home/anaconda 
+USER ${ANACONDA_UID}
 # Clean Anaconda
 RUN conda clean -afy \
     && fix-permissions ${HOME} \

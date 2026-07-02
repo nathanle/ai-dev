@@ -1,0 +1,19 @@
+---
+apiVersion: gateway.networking.k8s.io/v1alpha2
+kind: TCPRoute
+metadata:
+  name: sftp
+spec:
+  parentRefs:
+  - group: gateway.networking.k8s.io
+    kind: Gateway
+    name: eg 
+    sectionName: sftp 
+  rules:
+  - backendRefs:
+    - group: ""
+      kind: Service
+      name: sftpgo 
+      namespace: dev-ai
+      weight: 1
+      port: 22 

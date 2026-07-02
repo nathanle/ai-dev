@@ -58,7 +58,7 @@ persistence:
   storageClass: linode-block-storage-retain
 
   accessMode: ReadWriteOnce
-  size: 10Gi
+  size: 100Gi
 
 ## For creating the StorageClass automatically:
 storageClass:

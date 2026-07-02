@@ -1,0 +1,38 @@
+---
+apiVersion: kubernetes.dask.org/v1
+kind: DaskCluster
+metadata:
+  name: dask-cluster
+spec:
+  scheduler:
+    spec:
+      containers:
+      - name: scheduler
+        image: ghcr.io/nathanle/dask:latest
+    service:
+      type: NodePort
+      selector:
+        dask.org/cluster-name: simple
+        dask.org/component: scheduler
+      ports:
+      - name: tcp-comm
+        protocol: TCP
+        port: 8786
+        targetPort: "tcp-comm"
+      - name: http-dashboard
+        protocol: TCP
+        port: 8787
+        targetPort: "http-dashboard"
+  worker:
+    replicas: 3
+    spec:
+      nodeSelector:
+        lke.linode.com/pool-id: "913893"
+      tolerations:
+        - key: "hub.jupyter.org/dedicated"
+          operator: "Equal"
+          value: "user"
+          effect: "NoSchedule"
+      containers:
+      - name: worker
+        image: ghcr.io/nathanle/dask:latest

@@ -8,23 +8,23 @@ extraEnv: |
   - name: KC_LOG_LEVEL
     value: ERROR 
   - name: KC_HOSTNAME
-    value: kc-ai.cloud-testing.io
+    value: <kc.domain.com> 
   - name: KEYCLOAK_ADMIN
     value: admin
   - name: KEYCLOAK_ADMIN_PASSWORD
-    value: <Starting admin password>
+    value: 
   - name: KC_DB 
     value: postgres
   - name: KC_DB_URL_HOST
-    value: a441765-akamai-prod-2551706-default.g2a.akamaidb.net 
+    value: 
   - name: KC_DB_URL_PORT
-    value: "25079"
+    value: 
   - name: KC_DB_URL_DATABASE 
-    value: defaultdb 
+    value:  
   - name: KC_DB_USERNAME 
-    value: akmadmin
+    value: 
   - name: KC_DB_PASSWORD
-    value: <DB Password> 
+    value:  
   - name: JAVA_OPTS_APPEND
     value: >-
       -Djgroups.dns.query={{ include "keycloak.fullname" . }}-headless

@@ -1,0 +1,10 @@
+---
+apiVersion: kubernetes.dask.org/v1
+kind: DaskAutoscaler
+metadata:
+  name: dask-cluster-autoscaler
+spec:
+  cluster: dask-cluster
+  minimum: 2
+  maximum: 20
+

@@ -11,8 +11,8 @@ spec:
   - allowedRoutes:
       namespaces:
         from: Same
-    hostname: ai-dev.cloud-testing.io
-    name: https-ai-dev
+    hostname: dev-ai.cloud-testing.io
+    name: https-dev-ai
     port: 443
     protocol: HTTPS
     tls:
@@ -24,14 +24,14 @@ spec:
   - allowedRoutes:
       namespaces:
         from: Same
-    hostname: ai-dev.cloud-testing.io
-    name: http-ai-dev
+    hostname: dev-ai.cloud-testing.io
+    name: http-dev-ai
     port: 80
     protocol: HTTP
   - allowedRoutes:
       namespaces:
         from: Same
-    hostname: kc-ai.cloud-testing.io
+    hostname: keycloak.cloud-testing.io
     name: https-keycloak
     port: 443
     protocol: HTTPS
@@ -44,7 +44,7 @@ spec:
   - allowedRoutes:
       namespaces:
         from: Same
-    hostname: kc-ai.cloud-testing.io
+    hostname: keycloak.cloud-testing.io
     name: http-keycloak
     port: 80
     protocol: HTTP
