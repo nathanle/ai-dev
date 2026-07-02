@@ -177,9 +177,11 @@ More info background information can be found here: https://techdocs.akamai.com/
 
 Dask Gateway provides a secure, multi-tenant server for managing Dask clusters. It allows users to launch and use Dask clusters in a shared, centrally managed cluster environment, without requiring users to have direct access to the underlying cluster backend (e.g. Kubernetes, HPC Job queues, etc…).
 CPU cluster usage
-<img width="2940" height="1912" alt="Screenshot 2026-07-02 at 10 12 58 AM" src="https://github.com/user-attachments/assets/740572d9-d78b-46fd-a34c-43d90e90018f" />
+<img width="2938" height="1556" alt="Screenshot 2026-07-02 at 10 12 58 AM" src="https://github.com/user-attachments/assets/f1862639-efaa-49fe-9964-15bac9339d20" />
+
 GPU cluster usage
-<img width="2940" height="1912" alt="Screenshot 2026-07-02 at 10 14 29 AM" src="https://github.com/user-attachments/assets/830f0ba9-dbe8-45e7-b8db-727fa0da55df" />
+<img width="2876" height="1705" alt="Screenshot 2026-07-02 at 10 14 29 AM" src="https://github.com/user-attachments/assets/1d3cf09f-97ef-4526-836b-18d02c1aecf3" />
+
 
 ## SFTPGo
 
