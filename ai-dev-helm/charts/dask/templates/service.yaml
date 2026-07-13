@@ -5,9 +5,9 @@ metadata:
   labels:
     {{- include "dask.labels" . | nindent 4 }}
 spec:
-  type: {{ .Values.service.type }}
+  type: {{ .Values.traefik.service.type }}
   ports:
-    - port: {{ .Values.service.port }}
+    - port: {{ .Values.traefik.service.ports.web.port }}
       targetPort: http
       protocol: TCP
       name: http

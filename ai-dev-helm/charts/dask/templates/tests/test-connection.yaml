@@ -11,5 +11,5 @@ spec:
     - name: wget
       image: busybox
       command: ['wget']
-      args: ['{{ include "dask.fullname" . }}:{{ .Values.service.port }}']
+      args: ['{{ include "dask.fullname" . }}']
   restartPolicy: Never
